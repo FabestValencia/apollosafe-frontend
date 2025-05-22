@@ -5,6 +5,7 @@ import { catchError } from 'rxjs/operators';
 import { ClienteRegistrationRequest } from '../dto/cliente-registration-request';
 import { ClienteResponse } from '../dto/cliente-response';
 import { ErrorResponse } from '../dto/error-response'; // Asegúrate que la importación sea correcta
+import { ClienteUpdateRequest } from '../dto/cliente-update-request';
 
 @Injectable({
   providedIn: 'root'
@@ -41,12 +42,11 @@ export class ClienteService {
     );
   }
 
-  // Actualizar cliente (no implementado en el backend todavía, pero es común)
-  // updateCliente(idCliente: string, data: Partial<ClienteUpdateRequest>): Observable<ClienteResponse> {
-  //   return this.http.put<ClienteResponse>(`${this.apiUrl}/${idCliente}`, data).pipe(
-  //     catchError(this.handleError)
-  //   );
-  // }
+  updateCliente(idCliente: string, data: Partial<ClienteUpdateRequest>): Observable<ClienteResponse> {
+   return this.http.put<ClienteResponse>(`${this.apiUrl}/${idCliente}`, data).pipe(
+       catchError(this.handleError)
+  );
+ }
 
   // Buscar clientes (no implementado en el backend todavía, pero es común)
   // buscarClientes(params: BusquedaClienteRequest): Observable<Page<ClienteResponse>> {

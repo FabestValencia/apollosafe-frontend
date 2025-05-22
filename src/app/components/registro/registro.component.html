@@ -1,1 +1,121 @@
-<p>registro works!</p>
+<div class="register-page-container container-fluid px-0">
+  <div class="row g-0 min-vh-100">
+    <div class="col-lg-6 d-flex flex-column justify-content-between p-4 p-md-5 left-panel">
+      <div>
+        <h1 class="display-2 fw-bold text-dark text-left mb-4">ApolloSafe</h1>
+        <p class="lead text-secondary mb-5 message-text">
+          Únete a Campus Seguro y contribuye a una comunidad más protegida.
+          Registra incidentes, recibe alertas y colabora con otros estudiantes para
+          mantener nuestro entorno seguro. ¡Tu participación hace la diferencia!
+        </p>
+      </div>
+      <div>
+        <a routerLink="/" class="text-decoration-none text-primary back-link">
+          <i class="fas fa-chevron-left me-2"></i>regresar
+        </a>
+      </div>
+    </div>
+
+    <div class="col-lg-6 d-flex align-items-center justify-content-center p-4 p-md-5 right-panel">
+      <div class="register-form-container w-100">
+        <h3 class="form-title mb-4 text-center">Crea tu cuenta</h3>
+        <p-toast></p-toast> <div *ngIf="isLoading" class="text-center my-3">
+          <p-progressSpinner styleClass="w-4rem h-4rem" strokeWidth="8" animationDuration=".5s"></p-progressSpinner>
+          <p>Procesando...</p>
+        </div>
+
+        <form [formGroup]="registroForm" (ngSubmit)="onSubmit()" *ngIf="!isLoading">
+          <div class="row">
+            <div class="col-md-12 mb-3">
+              <label for="nombreCompleto" class="form-label">Nombre</label>
+              <input type="text" id="nombreCompleto" formControlName="nombreCompleto" class="form-control"
+                     placeholder="Ingrese nombre completo"
+                     [ngClass]="{ 'is-invalid': fc['nombreCompleto'].invalid && (fc['nombreCompleto'].dirty || fc['nombreCompleto'].touched) }">
+              <div *ngIf="fc['nombreCompleto'].invalid && (fc['nombreCompleto'].dirty || fc['nombreCompleto'].touched)" class="invalid-feedback">
+                <div *ngIf="fc['nombreCompleto'].errors?.['required']">El nombre es requerido.</div>
+                <div *ngIf="fc['nombreCompleto'].errors?.['maxlength']">Máximo 100 caracteres.</div>
+              </div>
+            </div>
+
+            <div class="col-md-12 mb-3">
+              <label for="ciudadResidencia" class="form-label">Ciudad de residencia</label>
+              <input type="text" id="ciudadResidencia" formControlName="ciudadResidencia" class="form-control"
+                     placeholder="Ingrese ciudad residencia"
+                     [ngClass]="{ 'is-invalid': fc['ciudadResidencia'].invalid && (fc['ciudadResidencia'].dirty || fc['ciudadResidencia'].touched) }">
+              <div *ngIf="fc['ciudadResidencia'].invalid && (fc['ciudadResidencia'].dirty || fc['ciudadResidencia'].touched)" class="invalid-feedback">
+                <div *ngIf="fc['ciudadResidencia'].errors?.['required']">La ciudad es requerida.</div>
+                <div *ngIf="fc['ciudadResidencia'].errors?.['maxlength']">Máximo 50 caracteres.</div>
+              </div>
+            </div>
+
+            <div class="col-md-12 mb-3">
+              <label for="telefono" class="form-label">Teléfono</label>
+              <input type="tel" id="telefono" formControlName="telefono" class="form-control"
+                     placeholder="Ingrese teléfono"
+                     [ngClass]="{ 'is-invalid': fc['telefono'].invalid && (fc['telefono'].dirty || fc['telefono'].touched) }">
+              <div *ngIf="fc['telefono'].invalid && (fc['telefono'].dirty || fc['telefono'].touched)" class="invalid-feedback">
+                <div *ngIf="fc['telefono'].errors?.['required']">El teléfono es requerido.</div>
+                <div *ngIf="fc['telefono'].errors?.['minlength'] || fc['telefono'].errors?.['maxlength']">Debe tener 10 dígitos.</div>
+                <div *ngIf="fc['telefono'].errors?.['pattern']">Solo debe contener números.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mb-3" formGroupName="direccion">
+            <label class="form-label">Dirección (selecciona en el mapa tu ubicación principal):</label>
+            <div id="mapaRegistroCliente" style="width: 100%; height: 250px; border: 1px solid #ced4da; border-radius: .25rem;"></div>
+            <div class="mt-2" *ngIf="direccionFc['latitud'].value && direccionFc['longitud'].value">
+              <span class="badge bg-secondary">Lat: {{ direccionFc['latitud'].value | number:'1.4-4' }}</span>
+              <span class="badge bg-secondary ms-2">Lng: {{ direccionFc['longitud'].value | number:'1.4-4' }}</span>
+            </div>
+            <div *ngIf="(direccionFc['latitud'].invalid || direccionFc['longitud'].invalid) && registroForm.get('direccion')?.touched" class="text-danger small mt-1">
+              La ubicación es requerida y debe ser seleccionada en el mapa.
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" id="email" formControlName="email" class="form-control"
+                   placeholder="Ingrese su correo electronico"
+                   [ngClass]="{ 'is-invalid': fc['email'].invalid && (fc['email'].dirty || fc['email'].touched) }">
+            <div *ngIf="fc['email'].invalid && (fc['email'].dirty || fc['email'].touched)" class="invalid-feedback">
+              <div *ngIf="fc['email'].errors?.['required']">El email es requerido.</div>
+              <div *ngIf="fc['email'].errors?.['email']">Debe ser un email válido.</div>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="contrasena" class="form-label">Contraseña</label>
+            <input type="password" id="contrasena" formControlName="contrasena" class="form-control"
+                   placeholder="Ingrese su nueva contraseña"
+                   [ngClass]="{ 'is-invalid': fc['contrasena'].invalid && (fc['contrasena'].dirty || fc['contrasena'].touched) }">
+            <div *ngIf="fc['contrasena'].invalid && (fc['contrasena'].dirty || fc['contrasena'].touched)" class="invalid-feedback">
+              <div *ngIf="fc['contrasena'].errors?.['required']">La contraseña es requerida.</div>
+              <div *ngIf="fc['contrasena'].errors?.['minlength']">Mínimo 8 caracteres.</div>
+              <div *ngIf="fc['contrasena'].errors?.['pattern']">Debe contener: número, minúscula y mayúscula.</div>
+            </div>
+          </div>
+
+          <div class="mb-4">
+            <label for="confirmarContrasena" class="form-label">Confirme contraseña</label>
+            <input type="password" id="confirmarContrasena" formControlName="confirmarContrasena" class="form-control"
+                   placeholder="Ingrese de nuevo la nueva contraseña"
+                   [ngClass]="{ 'is-invalid': (fc['confirmarContrasena'].invalid || registroForm.errors?.['passwordsMismatch']) && (fc['confirmarContrasena'].dirty || fc['confirmarContrasena'].touched) }">
+            <div *ngIf="fc['confirmarContrasena'].invalid && (fc['confirmarContrasena'].dirty || fc['confirmarContrasena'].touched) && !registroForm.errors?.['passwordsMismatch']" class="invalid-feedback">
+              <div *ngIf="fc['confirmarContrasena'].errors?.['required']">Confirmar la contraseña es requerido.</div>
+            </div>
+            <div *ngIf="registroForm.errors?.['passwordsMismatch'] && (fc['confirmarContrasena'].dirty || fc['confirmarContrasena'].touched)" class="invalid-feedback">
+              Las contraseñas no coinciden.
+            </div>
+          </div>
+
+          <div class="d-grid">
+            <button pButton type="submit" label="Registrarse"
+                    class="p-button-dark w-100" [loading]="isLoading" [disabled]="registroForm.invalid || isLoading">
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

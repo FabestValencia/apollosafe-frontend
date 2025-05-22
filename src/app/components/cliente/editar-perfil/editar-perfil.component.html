@@ -1,0 +1,114 @@
+<div class="editar-perfil-page container-fluid py-4 py-md-5">
+  <p-toast></p-toast>
+  <p-confirmDialog header="Confirmación" icon="pi pi-exclamation-triangle"></p-confirmDialog>
+
+  <div class="row justify-content-center">
+    <div class="col-lg-6 col-md-8 mb-4 mb-lg-0">
+      <div class="form-panel p-4 p-sm-5">
+        <h2 class="form-title mb-4">Edita tus datos personales</h2>
+
+        <div *ngIf="isLoading && !isSubmitting" class="text-center my-3">
+          <p-progressSpinner styleClass="w-4rem h-4rem" strokeWidth="8"></p-progressSpinner>
+          <p>{{ isLoadingMessage }}</p>
+        </div>
+
+        <form [formGroup]="editarPerfilForm" (ngSubmit)="onSubmit()" *ngIf="!isLoading">
+          <div class="mb-3">
+            <label for="nombreCompleto" class="form-label">Nombre</label>
+            <input type="text" id="nombreCompleto" formControlName="nombreCompleto" class="form-control"
+                   placeholder="Ingrese nuevo nombre"
+                   [ngClass]="{ 'is-invalid': fc['nombreCompleto'].invalid && fc['nombreCompleto'].touched }">
+            <div *ngIf="fc['nombreCompleto'].invalid && fc['nombreCompleto'].touched" class="invalid-feedback">
+              <div *ngIf="fc['nombreCompleto'].errors?.['required']">El nombre es requerido.</div>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="ciudadResidencia" class="form-label">Ciudad de residencia</label>
+            <input type="text" id="ciudadResidencia" formControlName="ciudadResidencia" class="form-control"
+                   placeholder="Ingrese nueva ciudad"
+                   [ngClass]="{ 'is-invalid': fc['ciudadResidencia'].invalid && fc['ciudadResidencia'].touched }">
+            <div *ngIf="fc['ciudadResidencia'].invalid && fc['ciudadResidencia'].touched" class="invalid-feedback">
+              <div *ngIf="fc['ciudadResidencia'].errors?.['required']">La ciudad es requerida.</div>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="telefono" class="form-label">Teléfono</label>
+            <input type="tel" id="telefono" formControlName="telefono" class="form-control"
+                   placeholder="Ingrese nuevo teléfono"
+                   [ngClass]="{ 'is-invalid': fc['telefono'].invalid && fc['telefono'].touched }">
+            <div *ngIf="fc['telefono'].invalid && fc['telefono'].touched" class="invalid-feedback">
+              <div *ngIf="fc['telefono'].errors?.['required']">El teléfono es requerido.</div>
+              <div *ngIf="fc['telefono'].errors?.['pattern']">Formato de teléfono inválido (10 dígitos).</div>
+            </div>
+          </div>
+
+          <div class="mb-3" formGroupName="direccion">
+            <label class="form-label">Dirección (selecciona en el mapa tu ubicación principal):</label>
+            <div id="mapaEditarPerfil" class="map-container rounded border mb-2"></div>
+            <div class="mt-1" *ngIf="direccionFc['latitud'].value && direccionFc['longitud'].value">
+              <span class="badge bg-secondary">Lat: {{ direccionFc['latitud'].value | number:'1.4-4' }}</span>
+              <span class="badge bg-secondary ms-2">Lng: {{ direccionFc['longitud'].value | number:'1.4-4' }}</span>
+              <span class="text-success ms-1"><i class="fas fa-check-circle"></i></span>
+            </div>
+            <div *ngIf="(direccionFc['latitud'].invalid || direccionFc['longitud'].invalid) && editarPerfilForm.get('direccion')?.touched" class="text-danger small mt-1">
+              La ubicación es requerida. Por favor, selecciona un punto en el mapa.
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" id="email" formControlName="email" class="form-control" readonly>
+            <small class="form-text text-muted">El correo electrónico no se puede cambiar.</small>
+          </div>
+
+          <div class="mb-3">
+            <label for="nuevaContrasena" class="form-label">Nueva Contraseña (opcional)</label>
+            <input type="password" id="nuevaContrasena" formControlName="nuevaContrasena" class="form-control"
+                   placeholder="Dejar en blanco para no cambiar">
+            <div *ngIf="fc['nuevaContrasena'].value && fc['nuevaContrasena'].invalid && fc['nuevaContrasena'].touched" class="invalid-feedback">
+                <div *ngIf="fc['nuevaContrasena'].errors?.['minlength']">Mínimo 8 caracteres.</div>
+                <div *ngIf="fc['nuevaContrasena'].errors?.['pattern']">Debe contener: número, minúscula y mayúscula.</div>
+            </div>
+          </div>
+
+          <div class="mb-4">
+            <label for="confirmarNuevaContrasena" class="form-label">Confirmar Nueva Contraseña</label>
+            <input type="password" id="confirmarNuevaContrasena" formControlName="confirmarNuevaContrasena" class="form-control"
+                   placeholder="Confirmar si ingresó una nueva contraseña"
+                   [ngClass]="{ 'is-invalid': editarPerfilForm.errors?.['passwordsMismatch'] && fc['confirmarNuevaContrasena'].touched }">
+            <div *ngIf="editarPerfilForm.errors?.['passwordsMismatch'] && fc['confirmarNuevaContrasena'].touched" class="invalid-feedback">
+              Las nuevas contraseñas no coinciden.
+            </div>
+             <div *ngIf="fc['nuevaContrasena'].value && !fc['confirmarNuevaContrasena'].value && fc['confirmarNuevaContrasena'].touched && !editarPerfilForm.errors?.['passwordsMismatch']" class="invalid-feedback">
+              Debe confirmar la nueva contraseña.
+            </div>
+          </div>
+
+          <div class="d-grid gap-2">
+            <button pButton type="submit" label="Guardar Cambios" icon="pi pi-save"
+                    class="p-button-dark w-100" [loading]="isSubmitting"
+                    [disabled]="editarPerfilForm.invalid || isSubmitting || !editarPerfilForm.dirty">
+            </button>
+            <button pButton type="button" label="Eliminar cuenta" icon="pi pi-trash"
+                    class="p-button-danger w-100" (click)="confirmarEliminacionCuenta()" [loading]="isDeleting">
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="col-lg-5 col-md-8 offset-lg-1 d-flex flex-column justify-content-between align-items-center align-items-lg-start text-center text-lg-start info-panel p-4 p-sm-5">
+      <div>
+        <h1 class="display-1 fw-bolder uq-alerta-title mb-4">UQ Alerta</h1>
+        <p class="lead info-text">
+          Mantén tus datos siempre al día para recibir alertas y reportes relevantes en tu zona.
+        </p>
+      </div>
+      <a routerLink="/cliente/home" class="text-decoration-none text-primary back-link align-self-lg-end mt-4 mt-lg-0">
+        <i class="fas fa-chevron-left me-1"></i>regresar
+      </a>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,81 @@
+.crear-reporte-container {
+  background-color: #fff;
+}
+
+.page-title {
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: #343a40;
+}
+
+.form-label {
+  font-weight: 500;
+  margin-bottom: 0.4rem;
+  font-size: 0.9rem;
+  color: #495057;
+}
+.form-label.d-block { /* Para la etiqueta de categorías */
+    margin-bottom: 0.25rem;
+}
+small.text-muted.d-block.mb-2 { /* Para la descripción de categorías */
+    font-size: 0.8rem;
+}
+
+.form-control-lg::placeholder,
+textarea.form-control-lg::placeholder {
+  color: #adb5bd;
+  font-size: 0.95rem;
+}
+
+.map-container {
+  width: 100%;
+  height: 300px; /* Ajusta según necesidad */
+  background-color: #e9ecef; /* Placeholder mientras carga el mapa */
+}
+
+.upload-area {
+  border-style: dashed !important;
+  border-width: 2px !important;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+.upload-area:hover {
+  background-color: #f1f3f5 !important;
+}
+.upload-area i {
+  color: #adb5bd;
+}
+
+.publish-button.p-button {
+  font-size: 1.1rem !important;
+  padding: 0.75rem 2rem !important;
+  font-weight: 500 !important;
+  background-color: #212529 !important; /* Botón negro como en la imagen */
+  border-color: #212529 !important;
+}
+.publish-button.p-button:hover {
+  background-color: #343a40 !important;
+  border-color: #343a40 !important;
+}
+.publish-button.p-button:disabled {
+  background-color: #6c757d !important;
+  border-color: #6c757d !important;
+}
+
+
+.category-checkbox-group {
+  max-height: 200px; /* Altura máxima para la lista de checkboxes */
+  overflow-y: auto; /* Scroll si hay muchas categorías */
+}
+.category-checkbox-group .form-check {
+    padding-left: 1.75em; /* Ajuste para mejor alineación */
+}
+.category-checkbox-group .form-check-input {
+    margin-left: -1.75em;
+}
+.category-checkbox-group.is-invalid {
+    border-color: #dc3545 !important; /* Color de error de Bootstrap */
+}
+.invalid-feedback.d-block { /* Para que el mensaje de error de Bootstrap se muestre */
+    display: block !important;
+}

@@ -1,0 +1,371 @@
+/* home-cliente.component.css */
+:host {
+  display: block;
+  font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+}
+
+.cliente-dashboard-container {
+  min-height: 100vh;
+  background-color: #ffffff;
+}
+
+/* --- BARRA LATERAL (SIDEBAR) --- */
+.sidebar {
+  height: 100vh;
+  position: sticky;
+  top: 0;
+  padding: 1.25rem 0.75rem !important; /* Reducido padding horizontal para más espacio interno */
+  background-color: #ffffff;
+  border-right: 1px solid #f0f0f0; /* Borde más sutil */
+}
+
+.sidebar-sticky {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-header-custom {
+  padding: 0 0.75rem; /* Padding interno para el header */
+}
+
+.sidebar-title { /* Para "UQ Alerta" */
+  font-size: 1.65rem;
+  font-weight: 600;
+  color: #212529;
+  /* Si hay un icono de hamburguesa, este se alinearía */
+  /* display: flex; align-items: center; */
+}
+
+.sidebar .nav-pills {
+  padding: 0 0.5rem; /* Padding para los ul que contienen nav-items */
+}
+
+.sidebar .nav-link {
+  color: #343a40;
+  padding: 0.6rem 0.75rem;
+  border-radius: 6px;
+  margin-bottom: 0.3rem;
+  display: flex;
+  align-items: center;
+  font-weight: 500;
+  font-size: 0.95em; /* Ligeramente más pequeño para más elegancia */
+  transition: background-color 0.15s ease-in-out, color 0.15s ease-in-out;
+}
+
+.sidebar .nav-link i.fas {
+  width: 18px;
+  margin-right: 0.8rem;
+  text-align: center;
+  font-size: 1em; /* Iconos más proporcionales al texto */
+  color: #5f6368; /* Color gris para iconos */
+}
+
+.sidebar .nav-link.active {
+  background-color: transparent;
+  color: #000000;
+  font-weight: 700;
+  box-shadow: none;
+}
+.sidebar .nav-link.active i.fas {
+  color: #000000;
+}
+
+.sidebar .nav-link:not(.active):hover {
+  background-color: #f1f3f5; /* Hover muy sutil */
+  color: #000000;
+}
+.sidebar .nav-link:not(.active):hover i.fas {
+  color: #000000;
+}
+
+.sidebar .nav-link .badge.bg-danger {
+  width: 9px; /* Punto de notificación */
+  height: 9px;
+  padding: 0;
+  font-size: 0.1px; /* Oculta el número dentro del badge */
+  line-height: 0.1px;
+  border-radius: 50%;
+  background-color: #dc3545 !important;
+  color: transparent !important;
+  border: 1.5px solid #fff; /* Borde blanco para destacar */
+  margin-left: auto;
+  transform: translate(2px, 1px); /* Ajuste fino */
+}
+
+/* Contenido inferior de la sidebar */
+.sidebar-footer-custom {
+  margin-top: auto; /* Empuja este bloque hacia abajo */
+  padding-bottom: 0.5rem; /* Evita que pegue mucho al fondo */
+}
+
+.sidebar-footer-custom .user-info {
+  padding: 0 0.75rem;
+  margin-top: 1rem; /* Espacio antes de la información del usuario */
+}
+.sidebar-footer-custom .user-info small.text-muted {
+  font-size: 0.78rem;
+  color: #6c757d !important;
+  display: block;
+  margin-bottom: 0.1rem;
+}
+.sidebar-footer-custom .user-info .fw-bold {
+  font-size: 0.9rem;
+  color: #212529;
+  display: block;
+}
+
+.sidebar-footer-custom .nav-link i.fas { /* Iconos de editar perfil y logout */
+    color: #5f6368; /* Mismo color que otros iconos de nav */
+}
+.sidebar-footer-custom .logout-link {
+  cursor: pointer;
+  color: #dc3545 !important;
+}
+.sidebar-footer-custom .logout-link:hover {
+  background-color: rgba(220, 53, 69, 0.08) !important;
+  color: #c82333 !important;
+}
+.sidebar-footer-custom .logout-link i.fas,
+.sidebar-footer-custom .logout-link:hover i.fas {
+  color: inherit !important; /* Hereda el color del enlace para el icono de logout */
+}
+
+/* --- CONTENIDO PRINCIPAL --- */
+.main-content {
+  background-color: #ffffff;
+  padding: 1.5rem 2rem !important; /* Ajuste de padding */
+  min-height: 100vh;
+  position: relative; /* Para el botón fijo */
+}
+
+.main-section-title { /* "Rango de notificaciones" */
+  color: #212529;
+  font-weight: 600;
+  font-size: 1.65rem; /* Tamaño como en la imagen de referencia */
+  margin-bottom: 1.25rem !important;
+  padding-bottom: 0 !important; /* Quitar padding-bottom de Bootstrap si lo tiene */
+  border-bottom: none !important;
+}
+
+.input-group-inline .input-group .form-control,
+.input-group-inline .input-group .input-group-text,
+.input-group-inline .input-group .btn {
+  padding-top: 0.55rem; /* Altura de inputs */
+  padding-bottom: 0.55rem;
+  font-size: 0.95rem;
+}
+
+.input-group-inline .input-group .input-group-text {
+  background-color: #f8f9fa;
+  border-color: #dee2e6;
+  color: #495057;
+}
+.input-group-inline .input-group .input-group-text i.fas {
+  font-size: 1rem;
+}
+.input-group-inline .input-group input[type="text"][readonly].form-control {
+  background-color: #f8f9fa !important; /* Mismo fondo que el addon */
+  border-left: 0; /* Para que el icono parezca dentro */
+  padding-left: 0.5rem;
+}
+.input-group-inline .input-group .btn-outline-secondary {
+  border-color: #dee2e6;
+  background-color: #f8f9fa;
+}
+.input-group-inline .custom-number-input.form-control { /* Input de Radio Km's */
+  text-align: center; /* Centrado como en la imagen */
+  border-left: 0;
+  border-right: 0;
+  border-radius: 0; /* Quitar bordes redondeados si está entre addons */
+  z-index: 2; /* Para que no se solape con los bordes de los addons */
+}
+.input-group-inline .input-group .input-addon-text { /* Para "Radio" y "Km's" */
+    border-radius: .25rem; /* Asegurar redondeo si están en los extremos */
+}
+.input-group-inline .input-group > :not(:first-child):not(.dropdown-menu):not(.valid-tooltip):not(.valid-feedback):not(.invalid-tooltip):not(.invalid-feedback) {
+    margin-left: -1px; /* Solapamiento de Bootstrap */
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+.input-group-inline .input-group > :not(:last-child):not(.dropdown-menu):not(.dropdown-toggle):not(.valid-tooltip):not(.valid-feedback):not(.invalid-tooltip):not(.invalid-feedback) {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+/* Específico para el primer input group (Ubicación) */
+.input-group-inline .input-group:first-child .input-group-text {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+.input-group-inline .input-group:first-child .form-control { /* Input de ubicación */
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+.input-group-inline .input-group:first-child .btn { /* Botón Fijar */
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+
+.map-placeholder-style {
+  background-color: #f0f0f0;
+  border-radius: 8px !important; /* Bordes redondeados como en la imagen */
+  width: 100%;
+  aspect-ratio: 16 / 10; /* O la proporción deseada */
+  max-height: 450px; /* Altura máxima */
+  border: 1px solid #dee2e6 !important;
+}
+
+.push-notifications-toggle.form-check.form-switch {
+  padding-left: 2.8em; /* Espacio para el switch */
+  margin-top: 1.25rem;
+}
+.push-notifications-toggle .form-check-input {
+  width: 2.3em;
+  height: 1.25em;
+  margin-left: -2.8em;
+  cursor: pointer;
+  background-color: #adb5bd; /* Color del switch apagado */
+  border-color: rgba(0,0,0,.25);
+}
+.push-notifications-toggle .form-check-input:checked {
+    background-color: #000000; /* Switch negro cuando está encendido */
+    border-color: #000000;
+}
+.push-notifications-toggle .form-check-label {
+  font-size: 0.95rem;
+  color: #343a40;
+  padding-top: 0.05rem;
+}
+
+/* --- PANEL DE CATEGORÍAS --- */
+.categories-column .sticky-top {
+  top: 1.5rem !important;
+}
+.categories-card-container .card {
+  border: 1px solid #f0f0f0; /* Borde sutil */
+  box-shadow: none; /* Sin sombra para un look más plano como en la imagen */
+}
+.categories-card-container .card-header {
+  background-color: #ffffff;
+  border-bottom: 1px solid #f0f0f0;
+  padding: 0.75rem 1.15rem;
+}
+.card-title-custom { /* "Categorías de Interés" */
+  color: #212529;
+  font-weight: 600;
+  font-size: 1.15rem; /* Tamaño como en la imagen */
+}
+
+.categories-card-container .card-body {
+  padding: 1rem 1.15rem; /* Ajuste de padding */
+  max-height: 320px; /* Altura máxima para scroll si hay muchas categorías */
+  overflow-y: auto;
+}
+.categories-card-container .form-check {
+  margin-bottom: 0.7rem;
+}
+.categories-card-container .form-check-label {
+  font-size: 0.9rem;
+  color: #343a40;
+}
+.categories-card-container .form-check-input {
+  margin-top: 0.2em;
+  border-color: #adb5bd;
+  width: 1.1em; /* Checkbox un poco más grande */
+  height: 1.1em;
+}
+.categories-card-container .form-check-input:checked {
+  background-color: #000000;
+  border-color: #000000;
+}
+.categories-card-container .form-check-input:focus {
+  box-shadow: 0 0 0 0.2rem rgba(0, 0, 0, 0.25); /* Sombra de foco negra */
+}
+
+.categories-card-container .card-body .text-muted.small {
+  font-size: 0.8rem;
+}
+
+.categories-card-container .card-footer {
+  background-color: #ffffff; /* Footer de la tarjeta blanco */
+  border-top: 1px solid #f0f0f0;
+  padding: 0.75rem 1.15rem;
+}
+.save-changes-btn.btn-sm.btn-success {
+  font-size: 0.8rem;
+  background-color: #28a745; /* Verde Bootstrap */
+  border-color: #28a745;
+}
+
+/* --- BOTÓN CREAR REPORTE (FIJO) --- */
+.fixed-bottom-right-button {
+  position: fixed;
+  bottom: 25px;
+  right: 30px;
+  z-index: 1030; /* Por encima de otros elementos de Bootstrap */
+}
+
+.create-report-btn.btn-dark.btn-lg {
+  font-size: 1.05rem; /* Ajuste de tamaño */
+  padding: 0.7rem 1.4rem; /* Más padding para una forma de píldora pronunciada */
+  font-weight: 600;
+  background-color: #000000;
+  border-color: #000000;
+  border-radius: 50px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  transition: background-color 0.15s ease-in-out, transform 0.15s ease-in-out;
+}
+.create-report-btn.btn-dark.btn-lg i.fas {
+  margin-right: 0.5rem;
+  font-size: 1em; /* Icono proporcional */
+}
+.create-report-btn.btn-dark.btn-lg:hover {
+  background-color: #232323;
+  border-color: #232323;
+  transform: translateY(-2px);
+}
+
+/* --- RESPONSIVIDAD --- */
+@media (max-width: 991.98px) { /* md y sm */
+  .sidebar {
+    height: auto;
+    position: static;
+  }
+  .categories-column .sticky-top {
+    position: static !important;
+  }
+  .fixed-bottom-right-button { /* El botón puede cambiar de posición si la sidebar desaparece */
+    /* Considerar si la posición debe ajustarse o si se integra al flujo */
+  }
+}
+
+@media (max-width: 767.98px) { /* sm */
+  .main-content {
+    padding: 1rem 1rem !important;
+  }
+  .main-section-title {
+    font-size: 1.4rem;
+  }
+  .card-title-custom {
+    font-size: 1.05rem;
+  }
+  .map-placeholder-style {
+    min-height: 280px;
+    aspect-ratio: 4 / 3;
+  }
+  .create-report-btn.btn-dark.btn-lg {
+    font-size: 0.95rem;
+    padding: 0.6rem 1.1rem;
+  }
+  .fixed-bottom-right-button {
+    bottom: 20px;
+    right: 20px;
+  }
+  .input-group-inline { /* Los inputs de rango se apilan */
+      flex-direction: column;
+      gap: 0.75rem; /* Espacio entre ellos cuando están apilados */
+  }
+}

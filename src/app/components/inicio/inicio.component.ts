@@ -1,11 +1,14 @@
 import { Component } from '@angular/core';
+import { RouterModule } from '@angular/router'; // Necesario para routerLink
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-inicio',
-  imports: [],
+  standalone: true,
+  imports: [RouterModule, CommonModule], // Agrega RouterModule
   templateUrl: './inicio.component.html',
-  styleUrl: './inicio.component.css'
+  styleUrls: ['./inicio.component.css']
 })
 export class InicioComponent {
-
+  // No se necesita lógica especial para la página de bienvenida estática por ahora
 }

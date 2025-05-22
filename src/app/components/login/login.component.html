@@ -1,1 +1,73 @@
-<p>login works!</p>
+<div class="login-page-container">
+  <div class="top-bar container-fluid py-3 mb-4">
+    <div class="row align-items-center">
+      <div class="col-auto">
+        <a routerLink="/" class="text-decoration-none text-primary back-link">
+          <i class="fas fa-chevron-left me-2"></i>regresar
+        </a>
+      </div>
+      <div class="col text-center">
+        <h2 class="mb-0 page-title">Bienvenido de nuevo a <span class="fw-bold">ApolloSafe</span></h2>
+      </div>
+      <div class="col-auto" style="visibility: hidden;"> <a routerLink="/" class="text-decoration-none text-primary back-link">
+          <i class="fas fa-chevron-left me-2"></i>regresar
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="container content-body">
+    <div class="row align-items-center justify-content-center">
+      <div class="col-lg-6 col-md-8 mb-5 mb-lg-0">
+        <div class="login-form-container">
+          <h3 class="form-title mb-2 text-center">¡Hola de nuevo!</h3>
+          <p class="form-subtitle mb-4 text-center">Accede a tu cuenta</p>
+
+          <p-toast></p-toast>
+          <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+            <div class="mb-3">
+              <label for="username" class="form-label">Email</label>
+              <input type="text" pInputText id="username" formControlName="username" class="form-control w-100"
+                     placeholder="Ingrese correo con el que esta registrado"/>
+              <small *ngIf="loginForm.get('username')?.invalid && loginForm.get('username')?.touched" class="p-error text-danger d-block mt-1">
+                <span *ngIf="loginForm.get('username')?.errors?.['required']">Correo requerido.</span>
+                <span *ngIf="loginForm.get('username')?.errors?.['email']">Correo inválido.</span>
+              </small>
+            </div>
+
+            <div class="mb-3">
+              <label for="password" class="form-label">Contraseña</label>
+              <input type="password" id="password" formControlName="password" placeholder="Ingrese contraseña"
+                     class="form-control w-100"/>
+              <small *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched" class="p-error text-danger d-block mt-1">
+                Contraseña requerida.
+              </small>
+            </div>
+
+            <div class="d-flex justify-content-center mb-3">
+              <a href="#" class="forgot-password-link text-muted">¿Olvidaste tu contraseña?</a>
+            </div>
+
+            <div class="d-grid mb-3">
+              <button type="submit" class="btn btn-dark w-100 login-btn" [disabled]="loginForm.invalid || loading">
+                Iniciar sesión
+              </button>
+            </div>
+
+            <div class="text-center">
+              <span class="text-muted">¿No estas registrado? </span>
+              <a routerLink="/registro" class="create-account-link">Crear cuenta</a>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div class="col-lg-6 col-md-10 text-center text-lg-start ps-lg-5">
+        <h2 class="display-5 fw-bold text-center mb-4 message-title">¡Obten las noticias del momento!</h2>
+        <p class="fs-5 text-center message-text ">
+          "Ingresa para reportar incidentes y recibir alertas en tiempo real".
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

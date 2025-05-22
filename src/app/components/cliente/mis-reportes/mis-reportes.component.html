@@ -1,0 +1,113 @@
+<div class="mis-reportes-container p-3 p-md-4">
+  <p-toast></p-toast>
+
+  <div class="page-header mb-4">
+    <h3 class="page-title">Lista tus reportes</h3>
+  </div>
+
+  <div class="toolbar mb-3">
+    <div class="row g-2 align-items-center">
+      <div class="col-md-6 col-lg-4">
+        <span class="p-input-icon-left w-100">
+          <i class="pi pi-search"></i>
+          <input pInputText type="text" [(ngModel)]="terminoBusqueda" (input)="filtrarReportes()" placeholder="Buscar reportes..." class="w-100 form-control-sm" />
+        </span>
+      </div>
+      <div class="col-md-auto">
+        <button pButton type="button" icon="pi pi-filter" label="Filtro" class="p-button-outlined p-button-secondary me-2" (click)="togglePanelFiltro()"></button>
+        </div>
+      <div class="col-md-auto ms-auto text-end">
+        <button pButton type="button" icon="pi pi-list" class="p-button-text p-button-secondary" pTooltip="Cambiar vista" tooltipPosition="top"></button>
+        </div>
+    </div>
+  </div>
+
+  <div *ngIf="mostrarPanelFiltro" class="filter-panel card shadow-sm mb-3 p-3">
+    <h5 class="mb-3">Opciones de Filtro</h5>
+    <div class="row g-3">
+      <div class="col-md-4">
+        <label for="filtroCategoria" class="form-label form-label-sm">Categoría</label>
+        <p-dropdown [options]="categoriasFiltro" [(ngModel)]="categoriaSeleccionadaFiltro" optionLabel="nombre" optionValue="idCategoria"
+                    placeholder="Todas las categorías" [showClear]="true" (onChange)="aplicarFiltrosDesdePanel()" styleClass="w-100"></p-dropdown>
+      </div>
+      <div class="col-md-4">
+        <label for="filtroEstado" class="form-label form-label-sm">Estado</label>
+        <p-dropdown [options]="estadosFiltro" [(ngModel)]="estadoSeleccionadoFiltro" optionLabel="label" optionValue="value"
+                    placeholder="Todos los estados" [showClear]="true" (onChange)="aplicarFiltrosDesdePanel()" styleClass="w-100"></p-dropdown>
+      </div>
+      <div class="col-md-4">
+        <label for="filtroFechaDesde" class="form-label form-label-sm">Fecha Desde</label>
+        <p-calendar [(ngModel)]="fechaDesdeFiltro" [showIcon]="true" inputId="filtroFechaDesde" dateFormat="dd/mm/yy" (onSelect)="aplicarFiltrosDesdePanel()" styleClass="w-100"></p-calendar>
+      </div>
+      <div class="col-md-4">
+        <label for="filtroFechaHasta" class="form-label form-label-sm">Fecha Hasta</label>
+        <p-calendar [(ngModel)]="fechaHastaFiltro" [showIcon]="true" inputId="filtroFechaHasta" dateFormat="dd/mm/yy" (onSelect)="aplicarFiltrosDesdePanel()" styleClass="w-100"></p-calendar>
+      </div>
+    </div>
+     <div class="text-end mt-3">
+        <button pButton type="button" label="Limpiar Filtros" icon="pi pi-times" class="p-button-text p-button-sm me-2" (click)="limpiarFiltrosPanel()"></button>
+        </div>
+  </div>
+
+
+  <div *ngIf="isLoadingReportes" class="text-center my-5">
+    <p-progressSpinner styleClass="w-4rem h-4rem"></p-progressSpinner>
+    <p class="mt-2">Cargando tus reportes...</p>
+  </div>
+
+  <div *ngIf="!isLoadingReportes && (!reportesFiltrados || reportesFiltrados.length === 0)" class="text-center my-5">
+    <i class="pi pi-inbox" style="font-size: 3rem; color: var(--surface-400);"></i>
+    <p class="mt-2 lead">No tienes reportes que coincidan con tu búsqueda o filtros.</p>
+    <p *ngIf="terminoBusqueda || categoriaSeleccionadaFiltro || estadoSeleccionadoFiltro || fechaDesdeFiltro || fechaHastaFiltro">
+        Intenta ajustar los términos de búsqueda o los filtros aplicados.
+    </p>
+    <button pButton type="button" label="Crear Nuevo Reporte" icon="pi pi-plus" class="mt-3" routerLink="/reportes/crear"></button>
+  </div>
+
+  <div *ngIf="!isLoadingReportes && reportesFiltrados && reportesFiltrados.length > 0" class="table-container">
+    <p-table [value]="reportesFiltrados" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10, 20, 50]"
+             responsiveLayout="scroll" styleClass="p-datatable-sm p-datatable-striped">
+      <ng-template pTemplate="header">
+        <tr>
+          <th style="min-width: 150px;">Ubicación (Lat, Lng)</th>
+          <th style="min-width: 200px;" pSortableColumn="titulo">Título <p-sortIcon field="titulo"></p-sortIcon></th>
+          <th style="min-width: 120px;" pSortableColumn="fechaPublicacion">Fecha <p-sortIcon field="fechaPublicacion"></p-sortIcon></th>
+          <th style="min-width: 150px;">Categoría(s)</th>
+          <th style="min-width: 120px;" pSortableColumn="estadoReporte">Estado <p-sortIcon field="estadoReporte"></p-sortIcon></th>
+          <th style="min-width: 100px; text-align: center;">Acciones</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-reporte>
+        <tr>
+          <td>
+            <i class="pi pi-map-marker me-1 text-primary"></i>
+            {{ reporte.ubicacion.latitud | number:'1.2-2' }}, {{ reporte.ubicacion.longitud | number:'1.2-2' }}
+          </td>
+          <td>{{ reporte.titulo }}</td>
+          <td>{{ reporte.fechaPublicacion | date:'dd/MM/yyyy HH:mm' }}</td>
+          <td>
+            <span *ngFor="let cat of reporte.categorias; let last = last">
+              <p-tag [value]="cat" severity="info" styleClass="me-1 mb-1"></p-tag>
+            </span>
+             <span *ngIf="!reporte.categorias || reporte.categorias.length === 0" class="text-muted">N/A</span>
+          </td>
+          <td>
+            <p-tag [value]="reporte.estadoReporte" [severity]="getEstadoTagSeverity(reporte.estadoReporte)"></p-tag>
+          </td>
+          <td style="text-align: center;">
+            <button pButton type="button" icon="pi pi-pencil" class="p-button-rounded p-button-text p-button-info me-1"
+                    pTooltip="Editar Reporte" tooltipPosition="top" (click)="editarReporte(reporte.idReporte)"></button>
+            <button pButton type="button" icon="pi pi-trash" class="p-button-rounded p-button-text p-button-danger"
+                    pTooltip="Eliminar Reporte" tooltipPosition="top" (click)="confirmarEliminacion(reporte.idReporte)"></button>
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="emptymessage">
+        <tr>
+          <td colspan="6" class="text-center">No se encontraron reportes.</td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+  <p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
+</div>

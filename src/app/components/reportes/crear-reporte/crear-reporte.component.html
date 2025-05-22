@@ -1,0 +1,104 @@
+<div class="crear-reporte-container p-3 p-md-4">
+  <p-toast></p-toast>
+  <h3 class="mb-4 page-title">Crear reporte</h3>
+
+  <div *ngIf="isLoading" class="text-center my-3">
+    <p-progressSpinner styleClass="w-4rem h-4rem" strokeWidth="8" animationDuration=".5s"></p-progressSpinner>
+    <p>Cargando datos...</p>
+  </div>
+
+  <form [formGroup]="crearReporteForm" (ngSubmit)="onSubmit()" *ngIf="!isLoading" class="needs-validation" novalidate>
+    <div class="row">
+      <div class="col-lg-7">
+        <div class="mb-4">
+          <label for="titulo" class="form-label">Título del reporte</label>
+          <input type="text" id="titulo" formControlName="titulo" class="form-control form-control-lg"
+                 placeholder="Ingrese el título del reporte a publicar"
+                 [ngClass]="{ 'is-invalid': fc['titulo'].invalid && (fc['titulo'].dirty || fc['titulo'].touched) }">
+          <div *ngIf="fc['titulo'].invalid && (fc['titulo'].dirty || fc['titulo'].touched)" class="invalid-feedback">
+            <div *ngIf="fc['titulo'].errors?.['required']">El título es requerido.</div>
+            <div *ngIf="fc['titulo'].errors?.['minlength']">Mínimo 5 caracteres.</div>
+            <div *ngIf="fc['titulo'].errors?.['maxlength']">Máximo 100 caracteres.</div>
+          </div>
+        </div>
+
+        <div class="mb-4">
+          <label class="form-label d-block">Categoría reporte</label>
+          <small class="text-muted d-block mb-2">Seleccione una o varias categorías para el reporte.</small>
+          <div class="category-checkbox-group p-3 border rounded" formArrayName="categoriasIds"
+               [ngClass]="{ 'is-invalid': categoriasFormArray.invalid && (categoriasFormArray.dirty || categoriasFormArray.touched) }">
+            <div *ngFor="let categoria of categoriasDisponibles; let i = index" class="form-check mb-2">
+              <input class="form-check-input" type="checkbox" [formControlName]="i" [id]="'cat-' + categoria.idCategoria">
+              <label class="form-check-label" [for]="'cat-' + categoria.idCategoria">
+                {{ categoria.nombre }}
+              </label>
+            </div>
+            <div *ngIf="categoriasDisponibles.length === 0 && !isLoadingCategorias" class="text-muted small">
+              No hay categorías disponibles o no se pudieron cargar.
+            </div>
+             <div *ngIf="isLoadingCategorias" class="text-center">
+                <p-progressSpinner styleClass="w-2rem h-2rem" strokeWidth="6"></p-progressSpinner>
+             </div>
+          </div>
+          <div *ngIf="categoriasFormArray.invalid && (categoriasFormArray.dirty || categoriasFormArray.touched)" class="invalid-feedback d-block">
+             Debe seleccionar al menos una categoría.
+          </div>
+        </div>
+
+
+        <div class="mb-4">
+          <label for="descripcion" class="form-label">Descripción del reporte</label>
+          <textarea id="descripcion" formControlName="descripcion" class="form-control form-control-lg" rows="6"
+                    placeholder="Ingrese una descripción detallada del reporte"
+                    [ngClass]="{ 'is-invalid': fc['descripcion'].invalid && (fc['descripcion'].dirty || fc['descripcion'].touched) }"></textarea>
+          <div *ngIf="fc['descripcion'].invalid && (fc['descripcion'].dirty || fc['descripcion'].touched)" class="invalid-feedback">
+            <div *ngIf="fc['descripcion'].errors?.['required']">La descripción es requerida.</div>
+            <div *ngIf="fc['descripcion'].errors?.['minlength']">Mínimo 10 caracteres.</div>
+            <div *ngIf="fc['descripcion'].errors?.['maxlength']">Máximo 1000 caracteres.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-5">
+        <div class="mb-4" formGroupName="ubicacion">
+          <label class="form-label"><i class="fas fa-map-marker-alt me-1"></i>Ubicación</label>
+          <div id="mapaCrearReporte" class="map-container rounded border mb-2"></div>
+          <div *ngIf="ubicacionFc['latitud'].value && ubicacionFc['longitud'].value" class="text-muted small">
+            Lat: {{ ubicacionFc['latitud'].value | number:'1.4-4' }},
+            Lng: {{ ubicacionFc['longitud'].value | number:'1.4-4' }}
+            <span class="text-success ms-1"><i class="fas fa-check-circle"></i> Seleccionada</span>
+          </div>
+           <div *ngIf="(ubicacionFc['latitud'].invalid || ubicacionFc['longitud'].invalid) && crearReporteForm.get('ubicacion')?.touched" class="text-danger small mt-1">
+            Por favor, selecciona la ubicación del incidente en el mapa.
+          </div>
+        </div>
+
+        <div class="mb-4">
+          <label class="form-label">Cargar archivo (URLs de imágenes)</label>
+          <div class="upload-area p-3 border rounded text-center bg-light">
+            <i class="fas fa-cloud-upload-alt fa-3x text-muted mb-2"></i>
+            <p class="text-muted small mb-1">Solo cargue imágenes</p>
+            <p class="text-muted small">Ingrese las URLs de las imágenes.</p>
+          </div>
+           <div formArrayName="imagenes" class="mt-2">
+            <div *ngFor="let imgControl of imagenesFormArray.controls; let i=index" class="input-group mb-2">
+              <input type="url" [formControlName]="i" class="form-control form-control-sm" placeholder="https://ejemplo.com/imagen.jpg">
+              <button type="button" class="btn btn-outline-danger btn-sm" (click)="removerCampoImagen(i)" [disabled]="imagenesFormArray.length <= 1 && i === 0">
+                <i class="fas fa-times"></i>
+              </button>
+            </div>
+          </div>
+          <button type="button" class="btn btn-outline-secondary btn-sm mt-1" (click)="agregarCampoImagen()">
+            <i class="fas fa-plus me-1"></i>Añadir URL
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="text-center mt-4">
+      <button pButton type="submit" label="Publicar reporte"
+              class="p-button-dark p-button-lg publish-button" [loading]="isSubmitting" [disabled]="crearReporteForm.invalid || isSubmitting">
+      </button>
+    </div>
+  </form>
+</div>

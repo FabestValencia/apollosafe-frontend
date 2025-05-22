@@ -1,0 +1,101 @@
+.landing-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 200px); /* Ajusta este valor según la altura de tu header y footer */
+  padding: 2rem;
+  background-color: #ffffff; /* Fondo blanco como en la imagen */
+  text-align: center;
+}
+
+.landing-content {
+  max-width: 600px;
+}
+
+.landing-content h1 {
+  color: #212529; /* Un negro no tan intenso */
+  font-size: 4rem; /* Tamaño grande para el título */
+}
+
+.landing-content .lead {
+  font-size: 1.25rem;
+  color: #495057; /* Un gris oscuro para el texto */
+  line-height: 1.6;
+}
+
+.btn-outline-primary {
+  color: #343a40; /* Botón "Iniciar sesión" con borde oscuro */
+  border-color: #343a40;
+  font-weight: 500;
+}
+
+.btn-outline-primary:hover {
+  background-color: #343a40;
+  color: #ffffff;
+}
+
+.btn-dark { /* Botón "Registrarse" oscuro */
+  background-color: #343a40;
+  border-color: #343a40;
+  color: #ffffff;
+  font-weight: 500;
+}
+
+.btn-dark:hover {
+  background-color: #23272b;
+  border-color: #1d2124;
+}
+
+.btn-lg {
+  padding: 0.75rem 1.5rem;
+  font-size: 1.1rem;
+}
+
+.landing-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+}
+
+.landing-content {
+  width: 100%;
+  max-width: 600px;
+}
+
+.display-3 {
+  font-size: 4rem;
+  font-weight: bold;
+}
+
+.lead {
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.d-grid {
+  gap: 1rem;
+  display: grid !important;
+}
+
+.btn {
+  width: 100%;
+  max-width: 350px;
+  margin: 0 auto;
+  font-size: 1rem;
+  border-radius: 6px;
+  box-shadow: none;
+}
+
+.btn-outline-primary {
+  background: #fff;
+  color: #000;
+  border: 1px solid #ccc;
+}
+
+.btn-dark {
+  background: #222;
+  color: #fff;
+  border: none;
+}

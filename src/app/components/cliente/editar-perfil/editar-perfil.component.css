@@ -1,0 +1,129 @@
+.editar-perfil-page {
+  background-color: #fff;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+}
+
+.editar-perfil-page .row {
+    width: 100%;
+}
+
+.form-panel {
+  /* No necesita estilos adicionales si el fondo de la página es blanco */
+}
+
+.form-title {
+  font-size: 2rem;
+  font-weight: 600;
+  color: #212529;
+}
+
+.form-label {
+  font-weight: 500;
+  margin-bottom: 0.35rem;
+  font-size: 0.9rem;
+  color: #495057;
+}
+
+.form-control, .form-control[readonly] {
+  border-radius: 0.25rem;
+  border: 1px solid #ced4da;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+}
+.form-control[readonly] {
+  background-color: #e9ecef;
+  opacity: 1;
+}
+.form-control::placeholder {
+  color: #adb5bd;
+  font-size: 0.95rem;
+}
+.form-control.is-invalid {
+  border-color: #dc3545;
+  background-image: none; /* Remover check/cross de Bootstrap */
+}
+.invalid-feedback {
+  display: block;
+  font-size: 0.8rem;
+  margin-top: 0.15rem;
+}
+
+/* Estilos para el mapa en el formulario de edición */
+#mapaEditarPerfil {
+  width: 100%;
+  height: 250px; /* Puedes ajustar la altura */
+  border: 1px solid #ced4da;
+  border-radius: .25rem;
+  background-color: #e9ecef; /* Color de fondo mientras carga */
+}
+.badge.bg-secondary {
+  font-size: 0.8em;
+}
+
+.p-button.p-button-dark {
+  background-color: #212529 !important;
+  border-color: #212529 !important;
+  color: #fff !important;
+  font-weight: 500;
+  padding: 0.75rem 1rem !important;
+}
+.p-button.p-button-dark:hover {
+  background-color: #343a40 !important;
+  border-color: #343a40 !important;
+}
+.p-button.p-button-dark:disabled {
+  background-color: #6c757d !important;
+  border-color: #6c757d !important;
+}
+
+.p-button.p-button-danger {
+  font-weight: 500;
+  padding: 0.75rem 1rem !important;
+}
+
+.info-panel {
+  /* Estilos para la columna derecha */
+}
+
+.uq-alerta-title {
+  font-size: 4rem;
+  color: #000;
+}
+
+.info-text {
+  font-size: 1.25rem;
+  color: #333;
+  line-height: 1.6;
+  max-width: 450px;
+}
+
+.back-link {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #007bff;
+}
+.back-link:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 991.98px) {
+  .left-panel, .info-panel { /* Ajustar para que no haya dos .left-panel */
+    padding-top: 2rem !important;
+    padding-bottom: 2rem !important;
+    text-align: center !important;
+  }
+  .info-panel .uq-alerta-title {
+    font-size: 3rem;
+  }
+  .info-panel .info-text, .info-panel .back-link {
+    margin-left: auto;
+    margin-right: auto;
+    align-self: center !important;
+  }
+  .info-panel .back-link {
+     display: block; /* Para que tome el centrado con margin auto */
+  }
+}

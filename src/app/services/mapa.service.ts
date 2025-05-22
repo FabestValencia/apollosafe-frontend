@@ -26,7 +26,7 @@ export class MapaService {
     // Mapbox GL JS lo almacenará internamente.
     // Si no tienes un token aquí, Mapbox tratará de buscarlo en mapboxgl.accessToken
     // Si el accessToken está vacío o no es válido, Mapbox no funcionará.
-    if (this.accessToken && this.accessToken !== 'TU_ACCESS_TOKEN_DE_MAPBOX') {
+    if (this.accessToken && this.accessToken !== 'pk.eyJ1IjoiZmFiZXN0MjMwNCIsImEiOiJjbWF5Z3d1enkwNWhzMmpxMGc4eXRtZWFsIn0.WJ6XDG4BD0yWu1FcD_0A8g') {
       mapboxgl.accessToken = this.accessToken;
     } else {
       console.error('Mapbox Access Token no está configurado en MapaService.');
