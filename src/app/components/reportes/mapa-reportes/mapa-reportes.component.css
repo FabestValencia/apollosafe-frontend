@@ -1,0 +1,27 @@
+.mapa-reportes-container {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 120px); /* Ajusta según la altura de tu header/footer si es una página principal */
+                             /* Si se carga en un router-outlet dentro de otro layout, ajusta según sea necesario */
+}
+.page-title-container {
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #dee2e6;
+}
+.page-title {
+  font-weight: 600;
+  color: #343a40;
+}
+.map-container {
+  flex-grow: 1; /* Hace que el mapa ocupe el espacio restante */
+  width: 100%;
+  background-color: #e9ecef; /* Color de fondo mientras carga el mapa */
+}
+.no-reports-message {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 300px; /* Ocupa espacio si no hay mapa */
+    color: var(--surface-500);
+}

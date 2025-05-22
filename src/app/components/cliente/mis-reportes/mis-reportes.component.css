@@ -1,6 +1,7 @@
 .mis-reportes-container {
-  background-color: #fff; /* Fondo blanco para el área de contenido */
+  background-color: #fff; /* Fondo blanco para el área de contenido*/ 
 }
+
 
 .page-title {
   font-size: 1.75rem;
@@ -11,10 +12,9 @@
 .toolbar .p-input-icon-left input {
   width: 100%;
 }
-
-/* Estilos para el panel de filtro */
+/*Estilos para el panel de filtro */
 .filter-panel {
-  background-color: #f8f9fa; /* Fondo ligeramente diferente para el panel */
+  background-color: #f8f9fa; /*Fondo ligeramente diferente para el panel*/
   border: 1px solid #dee2e6;
 }
 .form-label-sm {
@@ -37,7 +37,7 @@
 
 /* Ajustes para la tabla de PrimeNG */
 :host ::ng-deep .p-datatable-sm .p-datatable-thead > tr > th {
-  background-color: #f8f9fa; /* Cabecera de tabla más clara */
+  /*background-color: #f8f9fa; *//* Cabecera de tabla más clara */
   color: #495057;
   font-weight: 600;
   font-size: 0.9rem;
@@ -57,7 +57,7 @@
 
 :host ::ng-deep .p-button.p-button-text.p-button-info .p-button-icon,
 :host ::ng-deep .p-button.p-button-text.p-button-danger .p-button-icon {
-  font-size: 1.1rem; /* Iconos de acciones un poco más grandes */
+  font-size: 1.1rem; /* Iconos de acciones un poco más grandes*/ 
 }
 
 :host ::ng-deep .p-paginator {
@@ -69,4 +69,210 @@
   border: 1px solid #dee2e6;
   border-radius: 0.25rem;
   overflow: hidden; /* Para que los bordes redondeados se apliquen bien a la tabla */
+}
+
+/* Tarjetas de reporte tipo card */
+
+.card {
+  background: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(44, 62, 80, 0.04);
+  margin-bottom: 1.5rem;
+}
+
+.card h4 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+.card .badge {
+  font-size: 1rem;
+  border-radius: 8px;
+  font-weight: 600;
+  min-width: 100px;
+  text-align: center;
+  padding: 0.5rem 1.2rem;
+  letter-spacing: 0.5px;
+}
+
+.card .d-flex.gap-2 {
+  gap: 0.5rem !important;
+}
+
+.card .bg-light.border {
+  background: #f4f4f4 !important;
+  border: 1px solid #e0e0e0 !important;
+  color: #222;
+}
+
+.card .p-button-text.p-button-secondary {
+  color: #111;
+  font-weight: 500;
+  border-radius: 6px;
+}
+
+.card .p-button-text.p-button-secondary:hover {
+  background: #e9ecef;
+}
+
+.card .fw-bold {
+  font-size: 1rem;
+}
+
+.card .small.text-muted {
+  font-size: 0.95rem;
+}
+
+/* Botón negro "Agregar Reporte" */
+.page-title + .p-dropdown, .page-title + button, .page-title + .p-dropdown + button {
+  margin-left: 0.5rem;
+}
+
+button[routerLink="/reportes/crear"] {
+  background: #111 !important;
+  color: #fff !important;
+  border-radius: 6px !important;
+  font-weight: bold;
+  border: none;
+}
+button[routerLink="/reportes/crear"]:hover {
+  background: #222 !important;
+}
+
+/* Filtros arriba */
+.d-flex.flex-wrap.align-items-center.mb-4.gap-2 > * {
+  margin-bottom: 0.5rem;
+}
+
+/* Paginación visual */
+.pagination {
+  display: flex;
+  gap: 0.25rem;
+  background: none;
+  border: none;
+}
+.pagination .page-item {
+  border-radius: 6px;
+  overflow: hidden;
+}
+.pagination .page-link {
+  color: #222;
+  background: #fff;
+  border: 1px solid #dee2e6;
+  padding: 0.5rem 1rem;
+  font-weight: 500;
+  font-size: 1rem;
+  transition: background 0.2s, color 0.2s;
+}
+.pagination .page-item.active .page-link {
+  background: #111;
+  color: #fff;
+  border-color: #111;
+}
+.pagination .page-item.disabled .page-link {
+  color: #aaa;
+  background: #f4f4f4;
+  border-color: #dee2e6;
+}
+
+/* Nueva clase para la barra de filtros */
+.d-flex.filtros-bar {
+  flex-wrap: nowrap !important;
+  align-items: center;
+  gap: 1rem;
+}
+
+.filtros-bar .p-dropdown,
+.filtros-bar .p-dropdown .p-inputtext,
+.filtros-bar .p-dropdown-label {
+  min-width: 150px !important;
+  max-width: 180px;
+}
+.filtros-bar {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 1rem;
+}
+.filtros-bar .p-dropdown {
+  min-width: 160px !important;
+  max-width: 180px;
+  background: #fff;
+  border-radius: 6px;
+  border: 1px solid #dee2e6;
+  margin-bottom: 0 !important;
+  font-size: 1rem;
+  padding-left: 0.4rem !important;
+  padding-right: 1rem !important;
+}
+.filtros-bar .p-dropdown .p-inputtext {
+  background: #fff;
+  border: none;
+  font-size: 1rem;
+  padding-left: 0.3rem !important;
+  padding-right: 1rem !important;
+}
+:host ::ng-deep .p-dropdown-label {
+  padding-left: 0.3rem !important;
+  padding-right: 1rem !important;
+}
+:host ::ng-deep .p-dropdown-trigger {
+  right: 0.3rem !important;
+  color: #888;
+}
+:host ::ng-deep .p-dropdown-panel {
+  border-radius: 8px !important;
+  box-shadow: 0 4px 16px rgba(44,62,80,0.10) !important;
+  border: 1.5px solid #bdbdbd !important;
+}
+:host ::ng-deep .p-dropdown-items .p-dropdown-item {
+  font-size: 1rem !important;
+  padding: 0.5rem 1rem !important;
+  line-height: 1.2 !important;
+  border-radius: 6px;
+  margin: 2px 0;
+  transition: background 0.15s;
+}
+:host ::ng-deep .p-dropdown-items .p-dropdown-item.p-highlight, 
+:host ::ng-deep .p-dropdown-items .p-dropdown-item:hover {
+  background: #f0f0f0 !important;
+  color: #111 !important;
+}
+
+/* Responsive para tarjetas */
+@media (max-width: 600px) {
+  .card {
+    padding: 1rem !important;
+  }
+  .d-flex.flex-wrap.align-items-center.justify-content-between {
+    flex-direction: column;
+    align-items: flex-start !important;
+  }
+}
+
+
+
+@media (max-width: 900px) {
+  .d-flex.filtros-bar {
+    flex-wrap: wrap !important;
+    gap: 0.5rem;
+  }
+  .filtros-bar .p-dropdown,
+  .filtros-bar .p-dropdown .p-inputtext {
+    min-width: 120px !important;
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 1100px) {
+  .filtros-bar {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .filtros-bar .p-dropdown {
+    min-width: 120px !important;
+    max-width: 100%;
+  }
 }

@@ -1,1 +1,27 @@
-<p>verificacion-email works!</p>
+<div class="verificacion-container d-flex align-items-center justify-content-center">
+  <p-toast></p-toast>
+  <div class="card shadow-sm text-center p-4 p-md-5" style="max-width: 500px;">
+    <div *ngIf="isLoading" class="py-4">
+      <p-progressSpinner styleClass="w-4rem h-4rem" strokeWidth="8"></p-progressSpinner>
+      <p class="mt-3 mb-0 lead">Verificando tu cuenta...</p>
+    </div>
+
+    <div *ngIf="!isLoading">
+      <div *ngIf="!esError" class="text-success">
+        <i class="fas fa-check-circle fa-4x mb-3"></i>
+        <h4 class="mb-3">¡Verificación Exitosa!</h4>
+        <p class="lead">{{ mensaje }}</p>
+        <p>Serás redirigido a la página de inicio de sesión en unos segundos.</p>
+        <button pButton type="button" label="Ir a Login Ahora" icon="pi pi-sign-in" class="p-button-success mt-3" routerLink="/login"></button>
+      </div>
+
+      <div *ngIf="esError" class="text-danger">
+        <i class="fas fa-times-circle fa-4x mb-3"></i>
+        <h4 class="mb-3">Error en la Verificación</h4>
+        <p class="lead">{{ mensaje }}</p>
+        <p>Si el problema persiste, por favor, contacta a soporte o intenta registrarte de nuevo.</p>
+        <button pButton type="button" label="Volver al Inicio" icon="pi pi-home" class="p-button-secondary mt-3" routerLink="/"></button>
+      </div>
+    </div>
+  </div>
+</div>

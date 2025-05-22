@@ -1,0 +1,50 @@
+.page-title {
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: #343a40;
+}
+
+/* Ajustes para la tabla de PrimeNG en modo admin */
+:host ::ng-deep .p-datatable-sm .p-datatable-thead > tr > th {
+  background-color: #e9ecef; /* Cabecera un poco más oscura */
+  color: #212529;
+  font-weight: 600;
+  font-size: 0.9rem;
+  padding: 0.75rem 1rem;
+}
+
+:host ::ng-deep .p-datatable-sm .p-datatable-tbody > tr > td {
+  padding: 0.75rem 1rem;
+  font-size: 0.9rem;
+  vertical-align: middle;
+}
+
+:host ::ng-deep .p-button.p-button-sm { /* Para botones dentro de celdas o más pequeños */
+  padding: 0.4rem 0.6rem;
+  font-size: 0.8rem;
+}
+
+.table-header {
+  padding: 0.5rem 0; /* Ajustar padding del caption de la tabla */
+}
+.table-header .p-input-icon-left input {
+  font-size: 0.9rem;
+}
+
+/* Estilos para el formulario dentro del diálogo */
+.form-label {
+  font-weight: 500;
+  margin-bottom: 0.35rem;
+  font-size: 0.9rem;
+  color: #495057;
+}
+.form-control.is-invalid { /* Para inputs dentro del dialog */
+   border-color: #dc3545 !important; /* Bootstrap danger color */
+}
+.p-error.text-danger.d-block {
+   font-size: 0.8rem;
+}
+
+:host ::ng-deep .p-dialog .p-dialog-footer button {
+  margin-left: 0.5rem;
+}

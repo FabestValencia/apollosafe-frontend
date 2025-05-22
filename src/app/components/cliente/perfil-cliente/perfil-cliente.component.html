@@ -1,1 +1,44 @@
-<p>perfil-cliente works!</p>
+<div class="perfil-cliente-container p-3 p-md-4">
+  <p-toast></p-toast>
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h3 class="page-title mb-0">Mi Perfil</h3>
+    <button pButton type="button" label="Editar Información" icon="pi pi-user-edit"
+            class="p-button-sm" routerLink="/cliente/home/perfil/editar">
+    </button>
+  </div>
+
+  <div *ngIf="isLoading" class="text-center my-5">
+    <p-progressSpinner styleClass="w-4rem h-4rem"></p-progressSpinner>
+    <p class="mt-2">Cargando información de tu perfil...</p>
+  </div>
+
+  <p-card *ngIf="!isLoading && cliente" header="Información Personal" styleClass="mb-4 shadow-sm">
+    <div class="p-fluid grid">
+      <div class="field col-12 md:col-6">
+        <label for="nombreCompleto">Nombre Completo</label>
+        <input id="nombreCompleto" type="text" pInputText [value]="cliente.nombreCompleto" readonly />
+      </div>
+      <div class="field col-12 md:col-6">
+        <label for="email">Email</label>
+        <input id="email" type="text" pInputText [value]="cliente.email" readonly />
+      </div>
+      <div class="field col-12 md:col-6">
+        <label for="ciudadResidencia">Ciudad de Residencia</label>
+        <input id="ciudadResidencia" type="text" pInputText [value]="cliente.ciudadResidencia" readonly />
+      </div>
+      <div class="field col-12 md:col-6">
+        <label for="telefono">Teléfono</label>
+        <input id="telefono" type="text" pInputText [value]="cliente.telefono" readonly />
+      </div>
+      <div class="field col-12">
+        <label for="direccion">Dirección (Coordenadas)</label>
+        <input id="direccion" type="text" pInputText 
+               [value]="cliente.direccion ? (cliente.direccion.latitud + ', ' + cliente.direccion.longitud) : 'No especificada'" readonly />
+      </div>
+    </div>
+  </p-card>
+
+  <div *ngIf="!isLoading && !cliente" class="alert alert-warning">
+    No se pudo cargar la información de tu perfil. Intenta recargar o contacta a soporte.
+  </div>
+</div>

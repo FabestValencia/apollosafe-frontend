@@ -1,0 +1,55 @@
+.notificaciones-container {
+  background-color: #fff;
+}
+
+.page-title {
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: #343a40;
+}
+
+.list-group-item {
+  border-left-width: 0;
+  border-right-width: 0;
+  border-top-width: 0; /* Solo borde inferior por defecto */
+  padding: 1rem 1.25rem;
+}
+.list-group-item:first-child {
+  border-top-width: 1px; /* Borde superior para el primer elemento */
+  border-top-left-radius: .25rem;
+  border-top-right-radius: .25rem;
+}
+.list-group-item:last-child {
+  border-bottom-left-radius: .25rem;
+  border-bottom-right-radius: .25rem;
+}
+
+
+.list-group-item.no-leida {
+  background-color: #eef2f7; /* Un fondo sutil para no leídas */
+  border-left: 4px solid #007bff; /* Indicador izquierdo azul */
+  font-weight: 500; /* Texto un poco más destacado */
+}
+.list-group-item.no-leida:hover {
+  background-color: #dfe9f5; /* Un hover más notorio para no leídas */
+}
+
+.notification-description {
+  color: #333;
+  font-size: 0.95rem;
+}
+
+.notification-date {
+  font-size: 0.8rem;
+}
+.notification-date i {
+  font-size: 0.75rem;
+}
+
+.notification-unread-indicator {
+  font-size: 0.7rem; /* Tamaño del punto */
+  align-self: center; /* Centrar el punto verticalmente */
+}
+.notification-unread-indicator i {
+  opacity: 0.8;
+}

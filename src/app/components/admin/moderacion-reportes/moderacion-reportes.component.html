@@ -1,1 +1,62 @@
-<p>moderacion-reportes works!</p>
+<div class="p-3 p-md-4">
+  <p-toast></p-toast>
+  <p-confirmDialog></p-confirmDialog>
+
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h3 class="page-title mb-0">Moderación de Reportes</h3>
+    </div>
+
+  <div *ngIf="isLoading" class="text-center my-5">
+    <p-progressSpinner styleClass="w-4rem h-4rem"></p-progressSpinner>
+    <p class="mt-2">Cargando todos los reportes...</p>
+  </div>
+
+  <p-table *ngIf="!isLoading" #dtReportesAdmin [value]="reportes" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10,20,50]"
+           [globalFilterFields]="['titulo','descripcion','categorias','estadoReporte','idCliente']"
+           responsiveLayout="scroll" styleClass="p-datatable-sm p-datatable-striped">
+    <ng-template pTemplate="caption">
+      <div class="d-flex justify-content-end table-header">
+        <span class="p-input-icon-left">
+          <i class="pi pi-search"></i>
+          <input pInputText type="text" #searchInputAdmin (input)="dtReportesAdmin.filterGlobal(searchInputAdmin.value, 'contains')" placeholder="Buscar en reportes..." />
+        </span>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th pSortableColumn="titulo" style="min-width:15rem">Título <p-sortIcon field="titulo"></p-sortIcon></th>
+        <th pSortableColumn="idCliente" style="min-width:12rem">Reportado por (ID Cliente) <p-sortIcon field="idCliente"></p-sortIcon></th>
+        <th pSortableColumn="fechaPublicacion">Fecha <p-sortIcon field="fechaPublicacion"></p-sortIcon></th>
+        <th>Categoría(s)</th>
+        <th pSortableColumn="estadoReporte">Estado <p-sortIcon field="estadoReporte"></p-sortIcon></th>
+        <th style="width: 15rem; text-align:center;">Acciones de Moderación</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-reporte>
+      <tr>
+        <td>{{ reporte.titulo }}</td>
+        <td>{{ reporte.idCliente }}</td> <td>{{ reporte.fechaPublicacion | date:'dd/MM/yy HH:mm' }}</td>
+        <td>
+          <span *ngFor="let cat of reporte.categorias"><p-tag [value]="cat" severity="info" styleClass="me-1 mb-1"></p-tag></span>
+          <span *ngIf="!reporte.categorias || reporte.categorias.length === 0" class="text-muted">N/A</span>
+        </td>
+        <td>
+          <p-tag [value]="reporte.estadoReporte" [severity]="getEstadoTagSeverity(reporte.estadoReporte)"></p-tag>
+        </td>
+        <td style="text-align:center;">
+          <button pButton type="button" icon="pi pi-eye" class="p-button-rounded p-button-text p-button-success me-1"
+                  (click)="verDetalleReporte(reporte.idReporte)" pTooltip="Ver Detalles"></button>
+          <p-dropdown *ngIf="reporte.estadoReporte !== 'ELIMINADO'" [options]="opcionesEstado" [(ngModel)]="reporte.estadoReporte"
+                      optionLabel="label" optionValue="value" placeholder="Cambiar Estado"
+                      (onChange)="confirmarCambioEstado(reporte, $event.value)" appendTo="body"
+                      styleClass="p-button-sm me-1" [style]="{'min-width':'120px'}"></p-dropdown>
+          <button pButton type="button" icon="pi pi-trash" class="p-button-rounded p-button-text p-button-danger"
+                  (click)="confirmarEliminarReporte(reporte)" pTooltip="Eliminar Reporte"></button>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+      <tr><td colspan="6" class="text-center p-4">No hay reportes para mostrar.</td></tr>
+    </ng-template>
+  </p-table>
+</div>

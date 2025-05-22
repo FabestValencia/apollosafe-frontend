@@ -114,8 +114,6 @@ export class AuthService {
 
   // Método para la verificación de email (basado en SecurityController)
   verificarCuenta(token: string): Observable<string> {
-    // El backend espera el token como un @RequestParam, no en el body.
-    // HttpClient.get puede tomar HttpParams.
     return this.http.get(`${this.apiUrl}/auth/verified?token=${token}`, { responseType: 'text' });
   }
 }

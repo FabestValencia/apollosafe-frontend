@@ -74,6 +74,28 @@ export class MisReportesComponent implements OnInit, OnDestroy {
   fechaDesdeFiltro: Date | null = null;
   fechaHastaFiltro: Date | null = null;
 
+  // Filtros adicionales para la vista tipo tarjetas
+  importanciasFiltro = [
+    { label: 'Alta', value: 'ALTA' },
+    { label: 'Media', value: 'MEDIA' },
+    { label: 'Baja', value: 'BAJA' }
+  ];
+  importanciaSeleccionadaFiltro: string | null = null;
+
+  ubicacionesFiltro = [
+    { label: 'Cerca de mí', value: 'CERCA' },
+    { label: 'Mi ciudad', value: 'CIUDAD' },
+    { label: 'Todos', value: 'TODOS' }
+  ];
+  ubicacionSeleccionadaFiltro: string | null = null;
+
+  fechasFiltro = [
+    { label: 'Hoy', value: 'HOY' },
+    { label: 'Esta semana', value: 'SEMANA' },
+    { label: 'Este mes', value: 'MES' }
+  ];
+  fechaSeleccionadaFiltro: string | null = null;
+
 
   constructor(
     private reporteService: ReporteService,
@@ -180,6 +202,23 @@ export class MisReportesComponent implements OnInit, OnDestroy {
         reportesTemp = reportesTemp.filter(r => new Date(r.fechaPublicacion).getTime() <= fechaHastaTimestamp);
     }
 
+    // Filtrar por importancia
+    if (this.importanciaSeleccionadaFiltro) {
+      reportesTemp = reportesTemp.filter(r => {
+        const importanciaReporte = this.getImportancia(r);
+        return String(importanciaReporte) === this.importanciaSeleccionadaFiltro;
+      });
+    }
+
+    // Filtrar por ubicación (simulado)
+    if (this.ubicacionSeleccionadaFiltro && this.ubicacionSeleccionadaFiltro !== 'TODOS') {
+      reportesTemp = reportesTemp.filter(r => {
+        // Simulamos que todos los reportes están en 'CIUDAD' o 'CERCA'
+        const distancia = this.getDistancia(r);
+        return (this.ubicacionSeleccionadaFiltro === 'CIUDAD' && distancia === 'A 2 km de tu ubicación') ||
+             (this.ubicacionSeleccionadaFiltro === 'CERCA' && distancia === 'A 500 m de tu ubicación');
+      });
+    }
 
     this.reportesFiltrados = reportesTemp;
   }
@@ -193,6 +232,8 @@ export class MisReportesComponent implements OnInit, OnDestroy {
     this.estadoSeleccionadoFiltro = null;
     this.fechaDesdeFiltro = null;
     this.fechaHastaFiltro = null;
+    this.importanciaSeleccionadaFiltro = null;
+    this.ubicacionSeleccionadaFiltro = null;
     this.aplicarFiltros(); // Volver a aplicar para mostrar todos (o solo con búsqueda)
   }
 
@@ -212,6 +253,16 @@ export class MisReportesComponent implements OnInit, OnDestroy {
       case 'ELIMINADO': return 'contrast';
       default: return 'primary';
     }
+  }
+
+  // Simulación de importancia y distancia para la demo visual
+  getImportancia(reporte: any): number {
+    // Si tu modelo no tiene importancia, puedes simularlo
+    return reporte.importancia ? reporte.importancia : 3;
+  }
+  getDistancia(reporte: any): string {
+    // Simula la distancia, en un caso real deberías calcularla
+    return 'A 2 km de tu ubicación';
   }
 
   // La "Importancia" no viene en el DTO ReporteResponse.

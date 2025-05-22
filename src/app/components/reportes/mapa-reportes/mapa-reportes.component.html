@@ -1,1 +1,19 @@
-<p>mapa-reportes works!</p>
+<div class="mapa-reportes-container container-fluid p-0">
+  <p-toast></p-toast>
+  <div class="text-center py-3 page-title-container">
+    <h2 class="page-title">Mapa de Reportes Ciudadanos</h2>
+    <p class="lead text-muted">Visualiza los incidentes reportados por la comunidad.</p>
+  </div>
+
+  <div *ngIf="isLoading" class="text-center my-5">
+    <p-progressSpinner styleClass="w-5rem h-5rem"></p-progressSpinner>
+    <p class="mt-2">Cargando reportes en el mapa...</p>
+  </div>
+
+  <div id="mapaPublicoReportes" class="map-container">
+    </div>
+  <div *ngIf="!isLoading && (!reportesParaMapa || reportesParaMapa.length === 0)" class="no-reports-message">
+    <i class="pi pi-inbox" style="font-size: 2rem"></i>
+    <p>No hay reportes para mostrar en este momento.</p>
+  </div>
+</div>

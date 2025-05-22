@@ -1,1 +1,59 @@
-<p>gestion-usuarios works!</p>
+<div class="p-3 p-md-4">
+  <p-toast></p-toast>
+  <p-confirmDialog header="Confirmación" icon="pi pi-exclamation-triangle" acceptLabel="Sí" rejectLabel="No"></p-confirmDialog>
+
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h3 class="page-title mb-0">Gestión de Clientes</h3>
+    </div>
+
+  <div *ngIf="isLoading" class="text-center my-5">
+    <p-progressSpinner styleClass="w-4rem h-4rem"></p-progressSpinner>
+    <p class="mt-2">Cargando clientes...</p>
+  </div>
+
+  <p-table *ngIf="!isLoading" #dtClientes [value]="clientes" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10, 20, 50]"
+           [globalFilterFields]="['nombreCompleto','email','ciudadResidencia','telefono']"
+           responsiveLayout="scroll" styleClass="p-datatable-sm p-datatable-striped">
+    <ng-template pTemplate="caption">
+      <div class="d-flex justify-content-end table-header">
+        <span class="p-input-icon-left">
+          <i class="pi pi-search"></i>
+          <input pInputText type="text" #searchInput (input)="dtClientes.filterGlobal(searchInput.value, 'contains')" placeholder="Buscar cliente..." />
+        </span>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th pSortableColumn="nombreCompleto" style="min-width:15rem">Nombre <p-sortIcon field="nombreCompleto"></p-sortIcon></th>
+        <th pSortableColumn="email" style="min-width:15rem">Email <p-sortIcon field="email"></p-sortIcon></th>
+        <th pSortableColumn="ciudadResidencia">Ciudad <p-sortIcon field="ciudadResidencia"></p-sortIcon></th>
+        <th pSortableColumn="telefono">Teléfono <p-sortIcon field="telefono"></p-sortIcon></th>
+        <th style="width: 10rem; text-align: center;">Acciones</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-cliente>
+      <tr>
+        <td>{{ cliente.nombreCompleto }}</td>
+        <td>{{ cliente.email }}</td>
+        <td>{{ cliente.ciudadResidencia }}</td>
+        <td>{{ cliente.telefono }}</td>
+        <td style="text-align: center;">
+          <button pButton type="button" icon="pi pi-eye" class="p-button-rounded p-button-text p-button-success me-2"
+                  pTooltip="Ver Detalles (Pendiente)" tooltipPosition="top" (click)="verDetallesCliente(cliente)"></button>
+          <button pButton type="button" icon="pi pi-user-edit" class="p-button-rounded p-button-text p-button-info me-2"
+                  pTooltip="Editar Cliente (Pendiente)" tooltipPosition="top" (click)="editarCliente(cliente)"></button>
+          <button pButton type="button" icon="pi pi-trash" class="p-button-rounded p-button-text p-button-danger"
+                  pTooltip="Eliminar Cliente" tooltipPosition="top" (click)="confirmarEliminarCliente(cliente)"></button>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td colspan="5" class="text-center p-4">
+          <i class="pi pi-users" style="font-size: 1.5rem; color: var(--surface-400);"></i>
+          <p class="mt-2">No hay clientes para mostrar.</p>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

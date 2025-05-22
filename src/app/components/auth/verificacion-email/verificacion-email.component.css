@@ -1,0 +1,28 @@
+.verificacion-container {
+  min-height: calc(100vh - 160px); /* Ajusta según altura de header/footer */
+  padding: 20px;
+  background-color: #f4f7f6; /* Fondo suave */
+}
+
+.card {
+  border: none;
+}
+
+.lead {
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+}
+
+.text-success i {
+  color: #198754; /* Verde de Bootstrap success */
+}
+.text-success h4 {
+  color: #198754;
+}
+
+.text-danger i {
+  color: #dc3545; /* Rojo de Bootstrap danger */
+}
+.text-danger h4 {
+  color: #dc3545;
+}
