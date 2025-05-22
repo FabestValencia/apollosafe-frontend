@@ -224,7 +224,7 @@ export class EditarPerfilComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     // TODO: Implementar el método real en ClienteService y el endpoint en el backend
-    this.clienteService.updateCliente(this.clienteId, datosActualizados).subscribe({
+    this.clienteService.actualizarCliente(this.clienteId, datosActualizados).subscribe({
       next: (clienteActualizado) => {
         this.isSubmitting = false;
         this.messageService.add({ severity: 'success', summary: 'Perfil Actualizado', detail: 'Tu información ha sido guardada.' });
